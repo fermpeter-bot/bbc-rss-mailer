@@ -1,0 +1,25 @@
+services:
+  - type: worker
+    name: bbc-digest-mailer
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python send_digest.py
+    envVars:
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USERNAME
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: MAIL_FROM
+        sync: false
+      - key: MAIL_TO
+        sync: false
+
+cronJobs:
+  - name: send-bbc-digest
+    schedule: "0 5,6 * * *"
+    command: "python send_digest.py"
