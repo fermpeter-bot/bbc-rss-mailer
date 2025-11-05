@@ -18,8 +18,3 @@ services:
         sync: false
       - key: MAIL_TO
         sync: false
-
-cronJobs:
-  - name: send-bbc-digest
-    schedule: "0 5,6 * * *"   # 05:00 & 06:00 UTC
-    command: "python send_digest.py"
