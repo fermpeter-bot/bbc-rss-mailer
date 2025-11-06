@@ -1,20 +1,8 @@
 services:
-  - type: worker
-    name: bbc-digest-mailer
+  - type: cron
+    name: bbc-rss-mailer
     env: python
-    plan: free
+    plan: starter
     buildCommand: pip install -r requirements.txt
-    startCommand: python noop.py
-    envVars:
-      - key: SMTP_HOST
-        sync: false
-      - key: SMTP_PORT
-        value: "587"
-      - key: SMTP_USERNAME
-        sync: false
-      - key: SMTP_PASSWORD
-        sync: false
-      - key: MAIL_FROM
-        sync: false
-      - key: MAIL_TO
-        sync: false
+    startCommand: python send_digest.py
+    schedule: "0 5 * * *"   # kör varje dag 07:00 svensk tid (05:00 UTC)
